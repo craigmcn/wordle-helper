@@ -7,8 +7,9 @@ Remaining words are ranked by how common their letters are among the other
 remaining candidates, as a lightweight stand-in for real answer-popularity
 data (which isn't available offline).
 
-The word list is the macOS system dictionary's five-letter words, so it
-includes some obscure entries alongside common ones.
+The word list is the macOS system dictionary's five-letter words, filtered to
+common English vocabulary (via word-frequency data), landing close to the
+size of the real Wordle answer list.
 
 ## Development
 

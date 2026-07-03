@@ -18,10 +18,14 @@ yarn format:check    # Prettier check
 
 ## Architecture
 
-- **Word list:** `src/data/words.ts` — 8,506 five-letter words extracted from
-  the macOS system dictionary (`/usr/share/dict/words`). Includes some
-  obscure/archaic words; there's no offline source for the real NYT Wordle
-  answer/guess lists.
+- **Word list:** `src/data/words.ts` — 2,403 five-letter words: macOS system
+  dictionary words (`/usr/share/dict/words`) filtered to those with a Zipf
+  frequency ≥ 2.7 in the `wordfreq` English corpus. This intersection filters
+  out both obscure dictionary entries and proper nouns (which `wordfreq`'s
+  corpus alone doesn't exclude), landing close to the size of the real NYT
+  Wordle answer list (~2,300 words) — there's no offline source for the
+  actual list. Regenerate via a throwaway `wordfreq` venv if the cutoff needs
+  tuning; see git history for the exact filtering script.
 - **Filtering:** `src/lib/wordFilter.ts` — `isWordPossible` replays each guess
   row's correct/present/absent constraints against a candidate word,
   including the duplicate-letter edge case (a letter marked both present and
@@ -33,8 +37,9 @@ yarn format:check    # Prettier check
   which isn't available offline). Re-scored on every filter pass, so it
   adapts as the candidate list narrows.
 - **UI:** `src/App.tsx` owns guess state; `src/components/GuessRow.tsx`
-  renders one row of 5 letter inputs, clicking a filled letter cycles
-  absent → present → correct.
+  renders one row of 5 single-character inputs. Typing a letter auto-focuses
+  the next box; Backspace on an empty box moves focus back. Clicking a
+  filled letter cycles its status absent → present → correct.
 
 ## Notes
 
