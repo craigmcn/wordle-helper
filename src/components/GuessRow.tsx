@@ -8,6 +8,12 @@ const nextStatus: Record<LetterStatus, LetterStatus> = {
   correct: "absent",
 };
 
+const previousStatus: Record<LetterStatus, LetterStatus> = {
+  present: "absent",
+  correct: "present",
+  absent: "correct",
+};
+
 const statusLabel: Record<LetterStatus, string> = {
   absent: "not in word",
   present: "in word, wrong position",
@@ -49,15 +55,24 @@ export function GuessRow({
   ) => {
     if (event.key === "Backspace" && !guess[index].letter && index > 0) {
       inputRefs.current[index - 1]?.focus();
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      cycleStatus(index, nextStatus);
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      cycleStatus(index, previousStatus);
     }
   };
 
-  const handleStatusCycle = (index: number) => {
+  const cycleStatus = (
+    index: number,
+    statusMap: Record<LetterStatus, LetterStatus>,
+  ) => {
     if (!guess[index].letter) return;
     const updated = [...guess];
     updated[index] = {
       ...updated[index],
-      status: nextStatus[updated[index].status],
+      status: statusMap[updated[index].status],
     };
     onChange(updated);
   };
@@ -77,7 +92,7 @@ export function GuessRow({
           value={letter.letter}
           onChange={(event) => handleLetterChange(index, event.target.value)}
           onKeyDown={(event) => handleKeyDown(index, event)}
-          onClick={() => handleStatusCycle(index)}
+          onClick={() => cycleStatus(index, nextStatus)}
           aria-label={`Letter ${index + 1}${
             letter.letter ? `, ${statusLabel[letter.status]}` : ""
           }`}

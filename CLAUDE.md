@@ -38,8 +38,10 @@ yarn format:check    # Prettier check
   adapts as the candidate list narrows.
 - **UI:** `src/App.tsx` owns guess state; `src/components/GuessRow.tsx`
   renders one row of 5 single-character inputs. Typing a letter auto-focuses
-  the next box; Backspace on an empty box moves focus back. Clicking a
-  filled letter cycles its status absent → present → correct.
+  the next box; Backspace on an empty box moves focus back. A letter's
+  status (absent → present → correct) cycles via click, or via &uarr;/&darr;
+  while the box is focused (&uarr; forward, &darr; backward) — no mouse
+  required.
 
 ## Notes
 

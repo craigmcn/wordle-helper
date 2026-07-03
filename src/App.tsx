@@ -39,8 +39,9 @@ function App() {
     <main id="wordle-helper">
       <h1>Wordle Helper</h1>
       <p className="instructions">
-        Type each guess, then click a letter to cycle its status: grey (not in
-        word) &rarr; yellow (wrong position) &rarr; green (correct).
+        Type each guess, then click a letter (or focus it and press &uarr;/
+        &darr;) to cycle its status: grey (not in word) &rarr; yellow (wrong
+        position) &rarr; green (correct).
       </p>
 
       <div className="guesses">
