@@ -52,6 +52,7 @@ function App() {
             onChange={(updated) => updateGuess(index, updated)}
             onRemove={() => removeGuess(index)}
             canRemove={guesses.length > 1}
+            focusFirstInput={index === guesses.length - 1 && guesses.length > 1}
           />
         ))}
       </div>
