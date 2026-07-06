@@ -18,14 +18,14 @@ yarn format:check    # Prettier check
 
 ## Architecture
 
-- **Word list:** `src/data/words.ts` — 2,403 five-letter words: macOS system
-  dictionary words (`/usr/share/dict/words`) filtered to those with a Zipf
-  frequency ≥ 2.7 in the `wordfreq` English corpus. This intersection filters
-  out both obscure dictionary entries and proper nouns (which `wordfreq`'s
-  corpus alone doesn't exclude), landing close to the size of the real NYT
-  Wordle answer list (~2,300 words) — there's no offline source for the
-  actual list. Regenerate via a throwaway `wordfreq` venv if the cutoff needs
-  tuning; see git history for the exact filtering script.
+- **Word list:** `src/data/words.ts` — the canonical 2,315-word NYT Wordle
+  answer list, pulled directly from the Wordle game's own source code (see
+  [cfreshman's gist](https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b)).
+  Previously derived from macOS dictionary words filtered by `wordfreq`
+  corpus frequency, but that approximation both missed real answers (e.g.
+  "toddy", the 2026-07-06 answer) and let proper nouns leak through; the
+  official list fixes both. NYT adds new answers over time, so this list
+  will drift again — re-sync from an updated source if gaps reappear.
 - **Filtering:** `src/lib/wordFilter.ts` — `isWordPossible` replays each guess
   row's correct/present/absent constraints against a candidate word,
   including the duplicate-letter edge case (a letter marked both present and
