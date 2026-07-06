@@ -37,11 +37,12 @@ export function GuessRow({
 }: GuessRowProps) {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
+  const focusFirstInputOnMount = useRef(focusFirstInput);
+
   useEffect(() => {
-    if (focusFirstInput) {
+    if (focusFirstInputOnMount.current) {
       inputRefs.current[0]?.focus();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLetterChange = (index: number, value: string) => {
