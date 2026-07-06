@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import type { Guess, LetterStatus } from "../types";
 
@@ -25,6 +25,7 @@ interface GuessRowProps {
   onChange: (guess: Guess) => void;
   onRemove: () => void;
   canRemove: boolean;
+  focusFirstInput?: boolean;
 }
 
 export function GuessRow({
@@ -32,8 +33,17 @@ export function GuessRow({
   onChange,
   onRemove,
   canRemove,
+  focusFirstInput = false,
 }: GuessRowProps) {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+
+  const focusFirstInputOnMount = useRef(focusFirstInput);
+
+  useEffect(() => {
+    if (focusFirstInputOnMount.current) {
+      inputRefs.current[0]?.focus();
+    }
+  }, []);
 
   const handleLetterChange = (index: number, value: string) => {
     const letter = value

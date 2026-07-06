@@ -50,4 +50,15 @@ describe("App", () => {
     fireEvent.keyDown(firstInput, { key: "ArrowDown" });
     expect(firstInput).toHaveAccessibleName(/wrong position/);
   });
+
+  it("focuses the first letter of a newly added row", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /add guess/i }));
+
+    const textboxes = screen.getAllByRole("textbox");
+    const newRowFirstInput = textboxes[textboxes.length - 5];
+    expect(newRowFirstInput).toHaveFocus();
+  });
 });
