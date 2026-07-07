@@ -12,7 +12,8 @@ yarn build           # tsc -b + production build → dist/
 yarn build:netlify   # dual build: netlify/ (root) + netlify/wordle-helper/ (GH Pages)
 yarn test            # vitest watch mode
 yarn test:coverage   # vitest run --coverage
-yarn lint            # ESLint (src)
+yarn test:e2e        # Playwright headless E2E (run `yarn playwright install` once first)
+yarn lint            # ESLint (src, e2e)
 yarn format:check    # Prettier check
 ```
 

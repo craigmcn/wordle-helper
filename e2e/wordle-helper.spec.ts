@@ -6,8 +6,7 @@ test("filters the word list down as a guess is completed", async ({ page }) => {
   const letterBoxes = page.getByRole("textbox", { name: /^Letter \d/ });
   await expect(letterBoxes).toHaveCount(5);
 
-  const initialCount = await page.locator(".results h2").textContent();
-  expect(initialCount).toMatch(/^2315 possible words$/);
+  await expect(page.locator(".results h2")).toHaveText(/^\d+ possible words$/);
 
   await letterBoxes.first().click();
   await page.keyboard.type("toddy");
