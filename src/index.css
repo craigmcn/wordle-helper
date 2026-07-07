@@ -6,8 +6,24 @@
 
 :root {
   --text: #222;
+  --text-muted: #555;
+  --text-faint: #666;
   --bg: #fff;
+  --bg-muted: #f5f5f5;
+  --border: #999;
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --letter-absent-bg: #efefef;
+  --letter-absent-border: #aaa;
+  --letter-absent-text: #222;
+  --letter-present-bg: #f4d35e;
+  --letter-present-border: #c9a227;
+  --letter-present-text: #3a2e00;
+  --letter-correct-bg: #6aaa64;
+  --letter-correct-border: #4c8548;
+  --letter-correct-text: #fff;
+  --danger: #900;
+  --danger-muted: #ccc;
 
   font: 16px/1.5 var(--sans);
   color-scheme: light dark;
@@ -18,7 +34,23 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #e5e5e5;
+    --text-muted: #aaa;
+    --text-faint: #999;
     --bg: #16171d;
+    --bg-muted: #24262f;
+    --border: #4a4c56;
+
+    --letter-absent-bg: #2a2c35;
+    --letter-absent-border: #4a4c56;
+    --letter-absent-text: #e5e5e5;
+    --letter-present-bg: #b89b2e;
+    --letter-present-border: #8a7423;
+    --letter-present-text: #1a1400;
+    --letter-correct-bg: #538d4e;
+    --letter-correct-border: #3d6b3a;
+    --letter-correct-text: #fff;
+    --danger: #e05a5a;
+    --danger-muted: #55575f;
   }
 }
 
