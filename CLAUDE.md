@@ -43,6 +43,13 @@ yarn format:check    # Prettier check
   status (absent → present → correct) cycles via click, or via &uarr;/&darr;
   while the box is focused (&uarr; forward, &darr; backward) — no mouse
   required.
+- **Theming:** `src/index.css` defines semantic CSS custom properties
+  (`--text`, `--bg`, `--border`, `--border-strong`, per-letter-status
+  colors, etc.) with light defaults on `:root` and a
+  `prefers-color-scheme: dark` override block; `src/App.css` consumes only
+  `var(--token)` references, no hardcoded colors. No manual light/dark
+  toggle — follows [una.im/modern-css-theming](https://una.im/modern-css-theming).
+  E2E-verified in `e2e/dark-mode.spec.ts` via `page.emulateMedia`.
 
 ## Notes
 
