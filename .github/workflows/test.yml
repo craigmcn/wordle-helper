@@ -30,3 +30,8 @@ jobs:
       - run: yarn build
 
       - run: yarn test:coverage
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps chromium
+
+      - run: yarn test:e2e
