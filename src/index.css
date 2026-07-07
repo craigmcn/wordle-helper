@@ -11,6 +11,7 @@
   --bg: #fff;
   --bg-muted: #f5f5f5;
   --border: #999;
+  --border-strong: #333;
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
 
   --letter-absent-bg: #efefef;
@@ -39,6 +40,7 @@
     --bg: #16171d;
     --bg-muted: #24262f;
     --border: #4a4c56;
+    --border-strong: #7d818f;
 
     --letter-absent-bg: #2a2c35;
     --letter-absent-border: #4a4c56;
@@ -50,6 +52,9 @@
     --letter-correct-border: #3d6b3a;
     --letter-correct-text: #fff;
     --danger: #e05a5a;
+    /* ~2.5:1 against --bg, below WCAG AA — acceptable since it's only used
+       on the disabled remove-row button, which is exempt from the contrast
+       requirement. */
     --danger-muted: #55575f;
   }
 }

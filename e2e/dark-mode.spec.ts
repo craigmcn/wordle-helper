@@ -9,7 +9,7 @@ function hexToRgb(hex: string): string {
 }
 
 async function markFirstLetterCorrect(page: Page) {
-  const box = page.getByRole("textbox", { name: /^Letter 1/ });
+  const box = page.getByRole("textbox", { name: /^Letter 1(?:,|$)/ });
   await box.click();
   await page.keyboard.type("a");
   await box.click();
