@@ -57,3 +57,7 @@ yarn format:check    # Prettier check
   the cross-repo a11y rollout in `~/Web/` `active_projects.md`), rather than
   bolted on later.
 - Uses `.node-version` (not `.nvmrc`) — the toolchain standard is `mise`.
+
+## Open TODOs
+
+Tracked as issues in the [wordle-helper GitHub Project](https://github.com/users/craigmcn/projects/14) (GitHub Actions bump).
