@@ -36,7 +36,15 @@ yarn format:check    # Prettier check
   how common its letters are — positionally and overall — within the
   _remaining_ candidate pool itself (not real-world answer frequency data,
   which isn't available offline). Re-scored on every filter pass, so it
-  adapts as the candidate list narrows.
+  adapts as the candidate list narrows. It also takes `src/data/recentSolutions.ts`
+  (a compiled list of actual Wordle answers with dates, currently covering
+  2025-07-15 through 2026-07-14) and scales a word's score down the more
+  recently it was used as an answer, fading linearly back to no penalty at
+  the one-year mark — since NYT started repeating older answers from
+  2026-02-02 onward, this keeps freshly-used words from cluttering the top
+  of suggestions without excluding them outright. Both data files drift out
+  of date over time; re-sync from a Wordle answer archive site if gaps or
+  stale rankings reappear.
 - **UI:** `src/App.tsx` owns guess state; `src/components/GuessRow.tsx`
   renders one row of 5 single-character inputs. Typing a letter auto-focuses
   the next box; Backspace on an empty box moves focus back. A letter's

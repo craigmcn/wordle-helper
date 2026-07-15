@@ -1,4 +1,5 @@
 import type { Guess } from "../types";
+import type { RecentSolution } from "../data/recentSolutions";
 
 function countOccurrences(word: string, letter: string): number {
   let count = 0;
@@ -53,13 +54,48 @@ export function filterWords(
   return words.filter((word) => isWordPossible(word, completeGuesses));
 }
 
+const RECENCY_WINDOW_DAYS = 365;
+const MIN_RECENCY_FACTOR = 0.3;
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+/**
+ * Scales a word's letter-commonality score down if it was a recent Wordle
+ * answer, so freshly-used words sink in the ranking without being excluded
+ * outright (NYT does occasionally repeat answers). The penalty fades
+ * linearly to no effect at the edge of the one-year window.
+ */
+function recencyFactor(
+  word: string,
+  recentSolutions: readonly RecentSolution[],
+  now: number,
+): number {
+  let mostRecentDaysAgo = Infinity;
+  for (const { word: usedWord, date } of recentSolutions) {
+    if (usedWord !== word) continue;
+    const daysAgo = (now - new Date(date).getTime()) / MS_PER_DAY;
+    if (daysAgo < mostRecentDaysAgo) mostRecentDaysAgo = daysAgo;
+  }
+
+  if (mostRecentDaysAgo >= RECENCY_WINDOW_DAYS) return 1;
+  if (mostRecentDaysAgo < 0) return 1;
+
+  const t = mostRecentDaysAgo / RECENCY_WINDOW_DAYS;
+  return MIN_RECENCY_FACTOR + (1 - MIN_RECENCY_FACTOR) * t;
+}
+
 /**
  * Ranks candidates by how common their letters are within the remaining
  * candidate pool itself (positional frequency + overall frequency, each
  * letter counted once per word). This is a heuristic stand-in for real
- * answer-popularity data, which isn't available offline.
+ * answer-popularity data, which isn't available offline. Words used as a
+ * Wordle answer within the past year (`recentSolutions`) are scaled down so
+ * they de-prioritize behind fresher candidates.
  */
-export function rankWords(words: string[]): string[] {
+export function rankWords(
+  words: string[],
+  recentSolutions: readonly RecentSolution[] = [],
+  now: number = Date.now(),
+): string[] {
   const wordLength = words[0]?.length ?? 5;
   const positionalCounts: Array<Record<string, number>> = Array.from(
     { length: wordLength },
@@ -90,7 +126,7 @@ export function rankWords(words: string[]): string[] {
         seen.add(letter);
       }
     }
-    return total;
+    return total * recencyFactor(word, recentSolutions, now);
   };
 
   return [...words].sort((a, b) => score(b) - score(a));

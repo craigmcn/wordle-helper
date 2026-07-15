@@ -125,4 +125,19 @@ describe("rankWords", () => {
     const words = ["crane", "plush", "count"];
     expect(rankWords(words).sort()).toEqual([...words].sort());
   });
+
+  it("de-prioritizes a word used as a Wordle answer yesterday", () => {
+    const now = new Date("2026-07-15T00:00:00Z").getTime();
+    const recentSolutions = [{ date: "2026-07-14", word: "crane" }];
+    const ranked = rankWords(["crane", "count"], recentSolutions, now);
+    expect(ranked[0]).toBe("count");
+  });
+
+  it("does not penalize a word used more than a year ago", () => {
+    const now = new Date("2026-07-15T00:00:00Z").getTime();
+    const recentSolutions = [{ date: "2024-01-01", word: "crane" }];
+    const withRecent = rankWords(["crane", "count"], recentSolutions, now);
+    const withoutRecent = rankWords(["crane", "count"]);
+    expect(withRecent).toEqual(withoutRecent);
+  });
 });

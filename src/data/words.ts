@@ -1493,6 +1493,7 @@ export const WORDS: readonly string[] = [
   "prude",
   "prune",
   "psalm",
+  "pshaw",
   "pubic",
   "pudgy",
   "puffy",
