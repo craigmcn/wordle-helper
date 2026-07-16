@@ -77,9 +77,8 @@ function recencyFactor(
   }
 
   if (mostRecentDaysAgo >= RECENCY_WINDOW_DAYS) return 1;
-  if (mostRecentDaysAgo < 0) return 1;
 
-  const t = mostRecentDaysAgo / RECENCY_WINDOW_DAYS;
+  const t = Math.max(0, mostRecentDaysAgo) / RECENCY_WINDOW_DAYS;
   return MIN_RECENCY_FACTOR + (1 - MIN_RECENCY_FACTOR) * t;
 }
 
@@ -129,5 +128,8 @@ export function rankWords(
     return total * recencyFactor(word, recentSolutions, now);
   };
 
-  return [...words].sort((a, b) => score(b) - score(a));
+  return words
+    .map((word) => ({ word, score: score(word) }))
+    .sort((a, b) => b.score - a.score)
+    .map(({ word }) => word);
 }

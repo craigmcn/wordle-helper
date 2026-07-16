@@ -133,6 +133,16 @@ describe("rankWords", () => {
     expect(ranked[0]).toBe("count");
   });
 
+  it("applies the maximum penalty to a same-day or future-dated entry", () => {
+    const now = new Date("2026-07-15T00:00:00Z").getTime();
+    const todayRecent = [{ date: "2026-07-15", word: "crane" }];
+    const futureRecent = [{ date: "2026-07-16", word: "crane" }];
+    const today = rankWords(["crane", "count"], todayRecent, now);
+    const future = rankWords(["crane", "count"], futureRecent, now);
+    expect(today[0]).toBe("count");
+    expect(future[0]).toBe("count");
+  });
+
   it("does not penalize a word used more than a year ago", () => {
     const now = new Date("2026-07-15T00:00:00Z").getTime();
     const recentSolutions = [{ date: "2024-01-01", word: "crane" }];
