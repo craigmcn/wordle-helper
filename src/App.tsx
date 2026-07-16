@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { GuessRow } from "./components/GuessRow";
 import { WORDS } from "./data/words";
+import { RECENT_SOLUTIONS } from "./data/recentSolutions";
 import { filterWords, rankWords } from "./lib/wordFilter";
 import type { Guess } from "./types";
 import "./App.css";
@@ -20,7 +21,7 @@ function App() {
 
   const possibleWords = useMemo(() => {
     const filtered = filterWords(WORDS, guesses);
-    return rankWords(filtered);
+    return rankWords(filtered, RECENT_SOLUTIONS);
   }, [guesses]);
 
   const updateGuess = (index: number, guess: Guess) => {
