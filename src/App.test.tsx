@@ -61,4 +61,47 @@ describe("App", () => {
     const newRowFirstInput = textboxes[textboxes.length - 5];
     expect(newRowFirstInput).toHaveFocus();
   });
+
+  it("adds a new guess row prefilled with a clicked suggestion", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const [suggestion] = screen.getAllByRole("button", {
+      name: /^use .+ as next guess$/i,
+    });
+    const word = suggestion.textContent ?? "";
+
+    await user.click(suggestion);
+
+    const textboxes = screen.getAllByRole("textbox");
+    const newRowInputs = textboxes.slice(-5);
+    expect(
+      newRowInputs.map((input) => (input as HTMLInputElement).value),
+    ).toEqual(word.toLowerCase().split(""));
+    expect(newRowInputs[0]).toHaveFocus();
+    for (const input of newRowInputs) {
+      expect(input).toHaveAccessibleName(/not in word/);
+    }
+  });
+
+  it("activates a suggestion via the keyboard", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const [suggestion] = screen.getAllByRole("button", {
+      name: /^use .+ as next guess$/i,
+    });
+
+    let guard = 0;
+    while (document.activeElement !== suggestion && guard < 50) {
+      await user.tab();
+      guard += 1;
+    }
+    expect(suggestion).toHaveFocus();
+
+    const initialInputCount = screen.getAllByRole("textbox").length;
+    await user.keyboard("{Enter}");
+
+    expect(screen.getAllByRole("textbox")).toHaveLength(initialInputCount + 5);
+  });
 });
