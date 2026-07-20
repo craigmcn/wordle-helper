@@ -16,6 +16,10 @@ function emptyGuess(): Guess {
   }));
 }
 
+function guessFromWord(word: string): Guess {
+  return word.split("").map((letter) => ({ letter, status: "absent" }));
+}
+
 function App() {
   const [guesses, setGuesses] = useState<Guess[]>([emptyGuess()]);
 
@@ -34,6 +38,10 @@ function App() {
 
   const removeGuess = (index: number) => {
     setGuesses((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const applyWordAsGuess = (word: string) => {
+    setGuesses((prev) => [...prev, guessFromWord(word)]);
   };
 
   return (
@@ -69,7 +77,16 @@ function App() {
         </h2>
         <ul className="word-list">
           {possibleWords.slice(0, RESULTS_SHOWN).map((word) => (
-            <li key={word}>{word}</li>
+            <li key={word}>
+              <button
+                type="button"
+                className="word-suggestion"
+                onClick={() => applyWordAsGuess(word)}
+                aria-label={`Use ${word} as next guess`}
+              >
+                {word}
+              </button>
+            </li>
           ))}
         </ul>
         {possibleWords.length > RESULTS_SHOWN && (
