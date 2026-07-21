@@ -1,4 +1,4 @@
-// Five-letter Wordle answer words: the canonical 2,315-word NYT
+// Five-letter Wordle answer words: the canonical 2,317-word NYT
 // Wordle answer list, pulled directly from the Wordle game's own
 // source code (see https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b).
 // This is the authoritative list of words Wordle can pick as the
