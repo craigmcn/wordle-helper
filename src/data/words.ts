@@ -1732,6 +1732,7 @@ export const WORDS: readonly string[] = [
   "shell",
   "shied",
   "shift",
+  "shill",
   "shine",
   "shiny",
   "shire",
