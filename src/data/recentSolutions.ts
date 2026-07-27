@@ -1,4 +1,4 @@
-// Wordle answers for the past year (2025-07-15 through 2026-07-21),
+// Wordle answers for the past year (2025-07-15 through 2026-07-27),
 // compiled from public Wordle archive sites (wordlegroup.com,
 // stuckonwordle.com, beebom.com) and cross-checked against puzzle numbering
 // (day 0 = "cigar" on 2021-06-19). Used to de-prioritize recently-used
@@ -383,4 +383,10 @@ export const RECENT_SOLUTIONS: readonly RecentSolution[] = [
   { date: "2026-07-19", word: "churn" },
   { date: "2026-07-20", word: "diver" },
   { date: "2026-07-21", word: "shill" },
+  { date: "2026-07-22", word: "lorry" },
+  { date: "2026-07-23", word: "orbit" },
+  { date: "2026-07-24", word: "putty" },
+  { date: "2026-07-25", word: "aloha" },
+  { date: "2026-07-26", word: "grape" },
+  { date: "2026-07-27", word: "poser" },
 ];

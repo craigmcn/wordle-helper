@@ -19,7 +19,7 @@ yarn format:check    # Prettier check
 
 ## Architecture
 
-- **Word list:** `src/data/words.ts` — the canonical 2,317-word NYT Wordle
+- **Word list:** `src/data/words.ts` — the canonical 2,318-word NYT Wordle
   answer list, pulled directly from the Wordle game's own source code (see
   [cfreshman's gist](https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b)).
   Previously derived from macOS dictionary words filtered by `wordfreq`
@@ -38,7 +38,7 @@ yarn format:check    # Prettier check
   which isn't available offline). Re-scored on every filter pass, so it
   adapts as the candidate list narrows. It also takes `src/data/recentSolutions.ts`
   (a compiled list of actual Wordle answers with dates, currently covering
-  2025-07-15 through 2026-07-21) and scales a word's score down the more
+  2025-07-15 through 2026-07-27) and scales a word's score down the more
   recently it was used as an answer, fading linearly back to no penalty at
   the one-year mark — since NYT started repeating older answers from
   2026-02-02 onward, this keeps freshly-used words from cluttering the top
