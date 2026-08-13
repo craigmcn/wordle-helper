@@ -430,6 +430,7 @@ export const WORDS: readonly string[] = [
   "clown",
   "cluck",
   "clued",
+  "clunk",
   "clump",
   "clung",
   "coach",
