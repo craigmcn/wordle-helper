@@ -405,4 +405,5 @@ export const RECENT_SOLUTIONS: readonly RecentSolution[] = [
   { date: "2026-08-10", word: "snipe" },
   { date: "2026-08-11", word: "fence" },
   { date: "2026-08-12", word: "wimpy" },
+  { date: "2026-08-14", word: "geode" },
 ];
