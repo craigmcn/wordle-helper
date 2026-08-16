@@ -1,4 +1,4 @@
-// Wordle answers for the past year (2025-07-15 through 2026-07-27),
+// Wordle answers for the past year (2025-07-15 through 2026-08-16),
 // compiled from public Wordle archive sites (wordlegroup.com,
 // stuckonwordle.com, beebom.com) and cross-checked against puzzle numbering
 // (day 0 = "cigar" on 2021-06-19). Used to de-prioritize recently-used
@@ -407,4 +407,6 @@ export const RECENT_SOLUTIONS: readonly RecentSolution[] = [
   { date: "2026-08-12", word: "wimpy" },
   { date: "2026-08-13", word: "crash" },
   { date: "2026-08-14", word: "geode" },
+  { date: "2026-08-15", word: "loose" },
+  { date: "2026-08-16", word: "aspic" },
 ];

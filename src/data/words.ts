@@ -123,6 +123,7 @@ export const WORDS: readonly string[] = [
   "ashen",
   "aside",
   "askew",
+  "aspic",
   "assay",
   "asset",
   "atoll",
