@@ -55,7 +55,7 @@ results_, the answer is always in `wordFilter.ts`, never in the UI layer.
 
 ### `src/data/words.ts`
 
-The canonical ~2,319-word NYT Wordle answer list, copied directly from
+The canonical ~2,324-word NYT Wordle answer list, copied directly from
 Wordle's own source code (via
 [cfreshman's gist](https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b))
 rather than derived from a general dictionary. That distinction matters: an
