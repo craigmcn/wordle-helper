@@ -1,4 +1,4 @@
-// Five-letter Wordle answer words: the canonical 2,319-word NYT
+// Five-letter Wordle answer words: the canonical 2,324-word NYT
 // Wordle answer list, pulled directly from the Wordle game's own
 // source code (see https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b).
 // This is the authoritative list of words Wordle can pick as the
@@ -340,6 +340,7 @@ export const WORDS: readonly string[] = [
   "canoe",
   "canon",
   "caper",
+  "capon",
   "caput",
   "carat",
   "cargo",
@@ -1639,6 +1640,7 @@ export const WORDS: readonly string[] = [
   "ruler",
   "rumba",
   "rumor",
+  "runny",
   "rupee",
   "rural",
   "rusty",
@@ -2151,6 +2153,7 @@ export const WORDS: readonly string[] = [
   "twang",
   "tweak",
   "tweed",
+  "tween",
   "tweet",
   "twice",
   "twine",
