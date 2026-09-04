@@ -421,4 +421,11 @@ export const RECENT_SOLUTIONS: readonly RecentSolution[] = [
   { date: "2026-08-26", word: "capon" },
   { date: "2026-08-27", word: "uncut" },
   { date: "2026-08-28", word: "tween" },
+  { date: "2026-08-29", word: "blood" },
+  { date: "2026-08-30", word: "intel" },
+  { date: "2026-08-31", word: "mound" },
+  { date: "2026-09-01", word: "remix" },
+  { date: "2026-09-02", word: "ruler" },
+  { date: "2026-09-03", word: "joist" },
+  { date: "2026-09-04", word: "wager" },
 ];
