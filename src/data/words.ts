@@ -1335,6 +1335,7 @@ export const WORDS: readonly string[] = [
   "nicer",
   "niche",
   "niece",
+  "nifty",
   "night",
   "ninja",
   "ninny",
