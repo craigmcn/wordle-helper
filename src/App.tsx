@@ -16,8 +16,17 @@ function emptyGuess(): Guess {
   }));
 }
 
-function guessFromWord(word: string): Guess {
-  return word.split("").map((letter) => ({ letter, status: "absent" }));
+// Carry over greens from any earlier guess (not just the last row, which may
+// be blank) so the user doesn't have to re-mark letters already known.
+function guessFromWord(word: string, previous: Guess[]): Guess {
+  return word.split("").map((letter, i) => ({
+    letter,
+    status: previous.some(
+      (guess) => guess[i]?.status === "correct" && guess[i].letter === letter,
+    )
+      ? "correct"
+      : "absent",
+  }));
 }
 
 function App() {
@@ -41,7 +50,7 @@ function App() {
   };
 
   const applyWordAsGuess = (word: string) => {
-    setGuesses((prev) => [...prev, guessFromWord(word)]);
+    setGuesses((prev) => [...prev, guessFromWord(word, prev)]);
   };
 
   return (
