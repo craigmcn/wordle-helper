@@ -50,9 +50,11 @@ yarn format:check    # Prettier check
   the next box; Backspace on an empty box moves focus back. A letter's
   status (absent → present → correct) cycles via click, or via &uarr;/&darr;
   while the box is focused (&uarr; forward, &darr; backward) — no mouse
-  required. Clicking a suggested word appends it as a new row with every letter
-  grey, except positions where any earlier row has the same letter marked
-  correct — those start green, so known letters needn't be re-marked.
+  required. Whenever a letter is entered — typed, or filled by clicking a
+  suggested word (which appends a new row) — it starts grey, unless an
+  earlier row has the same letter marked correct in that position, in which
+  case it starts green so known letters needn't be re-marked. Only boxes whose
+  letter changed are re-derived; manually cycled statuses are left alone.
 - **Theming:** `src/index.css` defines semantic CSS custom properties
   (`--text`, `--bg`, `--border`, `--border-strong`, per-letter-status
   colors, etc.) with light defaults on `:root` and a

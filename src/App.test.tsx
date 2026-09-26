@@ -112,6 +112,30 @@ describe("App", () => {
     }
   });
 
+  it("marks a typed letter correct when an earlier guess already has it", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const firstRow = screen.getAllByRole("textbox");
+    for (const [i, letter] of [..."crane"].entries()) {
+      await user.type(firstRow[i], letter);
+    }
+    fireEvent.keyDown(firstRow[0], { key: "ArrowUp" });
+    fireEvent.keyDown(firstRow[0], { key: "ArrowUp" });
+
+    await user.click(screen.getByRole("button", { name: /add guess/i }));
+    const newRowInputs = screen.getAllByRole("textbox").slice(-5);
+    await user.type(newRowInputs[0], "c");
+    await user.type(newRowInputs[1], "c");
+
+    expect(newRowInputs[0]).toHaveAccessibleName(/correct position/);
+    expect(newRowInputs[1]).toHaveAccessibleName(/not in word/);
+
+    // Retyping a different letter drops the carried-over green.
+    await user.type(newRowInputs[0], "s");
+    expect(newRowInputs[0]).toHaveAccessibleName(/not in word/);
+  });
+
   it("activates a suggestion via the keyboard", async () => {
     const user = userEvent.setup();
     render(<App />);

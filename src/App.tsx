@@ -3,7 +3,7 @@ import { GuessRow } from "./components/GuessRow";
 import { WORDS } from "./data/words";
 import { RECENT_SOLUTIONS } from "./data/recentSolutions";
 import { filterWords, rankWords } from "./lib/wordFilter";
-import type { Guess } from "./types";
+import type { Guess, LetterStatus } from "./types";
 import "./App.css";
 
 const WORD_LENGTH = 5;
@@ -18,15 +18,24 @@ function emptyGuess(): Guess {
 
 // Carry over greens from any earlier guess (not just the last row, which may
 // be blank) so the user doesn't have to re-mark letters already known.
-function guessFromWord(word: string, previous: Guess[]): Guess {
-  return word.split("").map((letter, i) => ({
-    letter,
-    status: previous.some(
-      (guess) => guess[i]?.status === "correct" && guess[i].letter === letter,
-    )
-      ? "correct"
-      : "absent",
-  }));
+function knownStatus(
+  earlier: Guess[],
+  position: number,
+  letter: string,
+): LetterStatus {
+  return earlier.some(
+    (guess) =>
+      guess[position]?.status === "correct" &&
+      guess[position].letter === letter,
+  )
+    ? "correct"
+    : "absent";
+}
+
+function guessFromWord(word: string, earlier: Guess[]): Guess {
+  return word
+    .split("")
+    .map((letter, i) => ({ letter, status: knownStatus(earlier, i, letter) }));
 }
 
 function App() {
@@ -37,8 +46,18 @@ function App() {
     return rankWords(filtered, RECENT_SOLUTIONS);
   }, [guesses]);
 
+  // Only re-derive status where the letter changed, so a status the user
+  // cycled by hand isn't overwritten by later edits elsewhere in the row.
   const updateGuess = (index: number, guess: Guess) => {
-    setGuesses((prev) => prev.map((g, i) => (i === index ? guess : g)));
+    setGuesses((prev) => {
+      const earlier = prev.slice(0, index);
+      const updated = guess.map((entry, i) =>
+        entry.letter !== prev[index][i].letter
+          ? { ...entry, status: knownStatus(earlier, i, entry.letter) }
+          : entry,
+      );
+      return prev.map((g, i) => (i === index ? updated : g));
+    });
   };
 
   const addGuess = () => {
