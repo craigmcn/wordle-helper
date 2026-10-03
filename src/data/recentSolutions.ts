@@ -1,4 +1,4 @@
-// Wordle answers for the past year (2025-07-15 through 2026-09-25),
+// Wordle answers for the past year (2025-07-15 through 2026-10-02),
 // compiled from public Wordle archive sites (wordlegroup.com,
 // stuckonwordle.com, beebom.com) and cross-checked against puzzle numbering
 // (day 0 = "cigar" on 2021-06-19). Used to de-prioritize recently-used
@@ -449,4 +449,11 @@ export const RECENT_SOLUTIONS: readonly RecentSolution[] = [
   { date: "2026-09-23", word: "forth" },
   { date: "2026-09-24", word: "messy" },
   { date: "2026-09-25", word: "copse" },
+  { date: "2026-09-26", word: "elegy" },
+  { date: "2026-09-27", word: "sloop" },
+  { date: "2026-09-28", word: "trunk" },
+  { date: "2026-09-29", word: "scuba" },
+  { date: "2026-09-30", word: "river" },
+  { date: "2026-10-01", word: "ritzy" },
+  { date: "2026-10-02", word: "usury" },
 ];
