@@ -2165,6 +2165,7 @@ export const WORDS: readonly string[] = [
   "trice",
   "trick",
   "tried",
+  "trill",
   "tripe",
   "trite",
   "troll",
