@@ -19,14 +19,15 @@ yarn format:check    # Prettier check
 
 ## Architecture
 
-- **Word list:** `src/data/words.ts` — the canonical 2,324-word NYT Wordle
-  answer list, pulled directly from the Wordle game's own source code (see
+- **Word list:** `src/data/words.ts` — the 2,376-word NYT Wordle answer
+  list: the canonical 2,324 from the Wordle game's own source code (see
   [cfreshman's gist](https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b)).
   Previously derived from macOS dictionary words filtered by `wordfreq`
   corpus frequency, but that approximation both missed real answers (e.g.
   "toddy", the 2026-07-06 answer) and let proper nouns leak through; the
-  official list fixes both. NYT adds new answers over time, so this list
-  will drift again — re-sync from an updated source if gaps reappear.
+  official list fixes both. NYT adds new answers over time, so any answer
+  missing from it (e.g. "nifty") is appended during the weekly
+  recent-solutions sync.
 - **Filtering:** `src/lib/wordFilter.ts` — `isWordPossible` replays each guess
   row's correct/present/absent constraints against a candidate word,
   including the duplicate-letter edge case (a letter marked both present and
@@ -69,13 +70,24 @@ yarn format:check    # Prettier check
   the cross-repo a11y rollout in `~/Web/` `active_projects.md`), rather than
   bolted on later.
 - Uses `.node-version` (not `.nvmrc`) — the toolchain standard is `mise`.
-- Security headers (strict `'self'` CSP, nosniff, Referrer-Policy,
-  Permissions-Policy) live in `netlify.toml`; Netlify only, GitHub Pages can't
-  set headers. `index.html`'s inline trailing-slash script is allowed by
-  SHA-256 hash — edit it and `src/securityHeaders.test.ts` fails until the
-  hash in `netlify.toml` is updated. Anything new loaded cross-origin needs a
-  CSP entry.
+- **Netlify config:** `netlify.toml` holds the build (`yarn build:netlify`,
+  publish `netlify`; matches the dashboard, which the file overrides) and the
+  security headers: CSP, nosniff, Referrer-Policy, Permissions-Policy. Netlify
+  only; GitHub Pages can't set headers. The `www.craigmcn.com/wordle-helper/`
+  proxy passes them through.
+- **CSP:** `default-src 'self'` plus only the directives that differ from it
+  (redundant `img-src`/`style-src`/`connect-src 'self'` were dropped), since
+  nothing loads cross-origin. The same file shape is shared with order,
+  fivefold and queen-bee; the template lives in `~/Web/` `active_projects.md`,
+  so change it there and in the siblings, not here alone.
+- `index.html`'s inline trailing-slash script is allowed by SHA-256 hash — edit
+  it and `src/securityHeaders.test.ts` fails until the hash in `netlify.toml`
+  is updated. Anything new loaded cross-origin needs a CSP entry. To verify a
+  CSP change, serve the `build:netlify` output with the headers and check
+  `/`, `/wordle-helper` and `/wordle-helper/` for console errors.
 
 ## Open TODOs
 
-Tracked as issues in the [wordle-helper GitHub Project](https://github.com/users/craigmcn/projects/14) (GitHub Actions bump).
+Tracked as issues in the [wordle-helper GitHub Project](https://github.com/users/craigmcn/projects/14).
+Currently just the quarterly dependency review (#29, due 2027-01-01), which
+should also re-check that the CSP still covers everything the app loads.
