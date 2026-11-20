@@ -69,6 +69,12 @@ yarn format:check    # Prettier check
   the cross-repo a11y rollout in `~/Web/` `active_projects.md`), rather than
   bolted on later.
 - Uses `.node-version` (not `.nvmrc`) — the toolchain standard is `mise`.
+- Security headers (strict `'self'` CSP, nosniff, Referrer-Policy,
+  Permissions-Policy) live in `netlify.toml`; Netlify only, GitHub Pages can't
+  set headers. `index.html`'s inline trailing-slash script is allowed by
+  SHA-256 hash — edit it and `src/securityHeaders.test.ts` fails until the
+  hash in `netlify.toml` is updated. Anything new loaded cross-origin needs a
+  CSP entry.
 
 ## Open TODOs
 
