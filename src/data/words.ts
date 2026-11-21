@@ -1876,6 +1876,7 @@ export const WORDS: readonly string[] = [
   "snake",
   "snaky",
   "snare",
+  "snark",
   "snarl",
   "sneak",
   "sneer",
